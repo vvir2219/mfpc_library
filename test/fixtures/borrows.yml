@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  book: one
+  member: one
+  creation_date: 2023-02-22
+  expiration_date: 2023-02-22
+  returned_at: 2023-02-22
+
+two:
+  book: two
+  member: two
+  creation_date: 2023-02-22
+  expiration_date: 2023-02-22
+  returned_at: 2023-02-22
