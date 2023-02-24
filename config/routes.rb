@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :members, only: [ :index, :create ] do
+    resources :members, only: [ :index, :show, :create ] do
       member do
         get '/borrows' => 'members#borrows'
       end

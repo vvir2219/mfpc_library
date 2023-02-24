@@ -1,7 +1,31 @@
 class BorrowsController < ApplicationController
 
+  # params @returned [ True / False ]
   def index
-    render json: Borrow.all
+    borrows = Borrow.includes(:member).includes(:book)
+    if params[:returned].present?
+      returned = ActiveModel::Type::Boolean.new.cast(params[:returned])
+      if returned
+        borrows = borrows.where.not(returned_at: nil)
+      else
+        borrows = borrows.where(returned_at: nil)
+      end
+    end
+
+    borrows = borrows.map do |borrow|
+      {
+        id: borrow.id,
+        book_id: borrow.book_id,
+        book_title: borrow.book.title,
+        member_id: borrow.member_id,
+        member_name: borrow.member.name,
+        created_at: borrow.created_at,
+        expiration_date: borrow.expiration_date,
+        returned_at: borrow.returned_at
+      }.compact
+    end
+
+    render json: borrows
   end
 
   def create
